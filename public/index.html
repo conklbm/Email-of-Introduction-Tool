@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Email of Introduction</title>
+<meta name="description" content="Paste two LinkedIn profiles. Get their common ground and three ready-to-send intro emails." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤝</text></svg>" />
+<style>
+  :root {
+    --bg: #f6f4ef;
+    --card: #ffffff;
+    --ink: #1e2430;
+    --ink-soft: #5b6472;
+    --line: #e5e1d8;
+    --accent: #c25e40;
+    --accent-ink: #ffffff;
+    --accent-soft: #f7e8e2;
+    --good: #2e7d55;
+    --radius: 14px;
+    --shadow: 0 1px 2px rgba(30,36,48,.05), 0 8px 24px -12px rgba(30,36,48,.12);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14161b;
+      --card: #1d2027;
+      --ink: #edeae3;
+      --ink-soft: #9aa1ad;
+      --line: #2c3038;
+      --accent: #d97757;
+      --accent-soft: #33261f;
+      --good: #6fc396;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    line-height: 1.55;
+  }
+  .sans { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  main { max-width: 680px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  header { text-align: center; margin-bottom: 36px; }
+  .badge {
+    display: inline-block; font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--accent); border: 1px solid var(--accent); border-radius: 999px;
+    padding: 4px 14px; margin-bottom: 18px;
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  h1 { font-size: clamp(30px, 6vw, 42px); font-weight: 500; letter-spacing: -.01em; }
+  h1 em { font-style: italic; color: var(--accent); }
+  .sub { color: var(--ink-soft); margin-top: 10px; font-size: 17px; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 26px; margin-bottom: 20px;
+  }
+
+  label { display: block; font-size: 13px; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--ink-soft); margin-bottom: 6px;
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .field { margin-bottom: 18px; }
+  input[type="url"], textarea {
+    width: 100%; font-size: 16px; padding: 13px 14px; border-radius: 10px;
+    border: 1.5px solid var(--line); background: var(--bg); color: var(--ink);
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    transition: border-color .15s;
+    min-height: 44px;
+  }
+  textarea { resize: vertical; min-height: 60px; }
+  input:focus, textarea:focus { outline: none; border-color: var(--accent); }
+
+  .connector {
+    display: flex; align-items: center; gap: 12px; margin: 4px 0 18px;
+    color: var(--ink-soft); font-style: italic; font-size: 15px;
+  }
+  .connector::before, .connector::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+  button.primary {
+    width: 100%; padding: 15px; font-size: 17px; font-weight: 600;
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--accent); color: var(--accent-ink);
+    border: none; border-radius: 10px; cursor: pointer; min-height: 48px;
+    transition: filter .15s, transform .05s;
+  }
+  button.primary:hover { filter: brightness(1.07); }
+  button.primary:active { transform: scale(.99); }
+  button.primary:disabled { opacity: .55; cursor: wait; }
+
+  .error {
+    display: none; margin-top: 14px; padding: 12px 14px; border-radius: 10px;
+    background: var(--accent-soft); color: var(--accent); font-size: 15px;
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+
+  /* Loading steps */
+  #loading { display: none; }
+  .step { display: flex; align-items: center; gap: 12px; padding: 9px 0; color: var(--ink-soft);
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 15px; }
+  .step .dot {
+    width: 22px; height: 22px; border-radius: 50%; flex: none;
+    border: 2px solid var(--line); display: grid; place-items: center; font-size: 12px;
+  }
+  .step.active { color: var(--ink); }
+  .step.active .dot { border-color: var(--accent); }
+  .step.active .dot::after {
+    content: ""; width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent); animation: pulse 1s ease-in-out infinite;
+  }
+  .step.done { color: var(--good); }
+  .step.done .dot { border-color: var(--good); color: var(--good); }
+  .step.done .dot::after { content: "✓"; animation: none; }
+  @keyframes pulse { 50% { opacity: .3; } }
+  .loading-note { font-size: 13px; color: var(--ink-soft); margin-top: 10px; font-style: italic; }
+
+  /* Results */
+  #results { display: none; }
+  .who {
+    display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
+    margin-bottom: 20px; text-align: center;
+  }
+  .who .person { font-size: 18px; font-weight: 600; }
+  .who .amp { color: var(--accent); font-style: italic; font-size: 20px; }
+  .who .headline { display: block; font-size: 13px; color: var(--ink-soft); font-weight: 400;
+    max-width: 240px; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+
+  h2 { font-size: 22px; font-weight: 500; margin-bottom: 14px; }
+  h2 em { color: var(--accent); }
+  ul.similarities { list-style: none; }
+  ul.similarities li {
+    position: relative; padding: 8px 0 8px 28px; font-size: 16px;
+    border-bottom: 1px dashed var(--line);
+  }
+  ul.similarities li:last-child { border-bottom: none; }
+  ul.similarities li::before { content: "◆"; position: absolute; left: 4px; color: var(--accent); font-size: 11px; top: 13px; }
+
+  .tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .tab {
+    padding: 9px 16px; border-radius: 999px; border: 1.5px solid var(--line);
+    background: transparent; color: var(--ink-soft); font-size: 14px; cursor: pointer;
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif; min-height: 44px;
+  }
+  .tab.active { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+
+  .email { display: none; }
+  .email.visible { display: block; }
+  .email .subject {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-weight: 600; font-size: 16px; padding-bottom: 12px; margin-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .email .subject span { color: var(--ink-soft); font-weight: 400; }
+  .email .body { white-space: pre-wrap; font-size: 16.5px; }
+
+  .copy-btn {
+    margin-top: 18px; padding: 10px 18px; border-radius: 10px; cursor: pointer;
+    border: 1.5px solid var(--accent); background: transparent; color: var(--accent);
+    font-size: 15px; font-weight: 600; min-height: 44px;
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    transition: background .15s, color .15s;
+  }
+  .copy-btn:hover { background: var(--accent); color: var(--accent-ink); }
+  .copy-btn.copied { border-color: var(--good); color: var(--good); background: transparent; }
+
+  .again { text-align: center; margin-top: 8px; }
+  .again button {
+    background: none; border: none; color: var(--ink-soft); font-size: 15px;
+    text-decoration: underline; cursor: pointer; font-family: Georgia, serif; font-style: italic;
+    min-height: 44px;
+  }
+  footer { text-align: center; color: var(--ink-soft); font-size: 13px; margin-top: 40px;
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="badge">Email of Introduction</div>
+    <h1>Two people. <em>One warm intro.</em></h1>
+    <p class="sub">Paste two LinkedIn profiles — get their common ground and three ready-to-send intro emails.</p>
+  </header>
+
+  <form id="form" class="card">
+    <div class="field">
+      <label for="url1">Person A — LinkedIn URL</label>
+      <input type="url" id="url1" placeholder="https://www.linkedin.com/in/..." required autocomplete="off" />
+    </div>
+    <div class="connector">meets</div>
+    <div class="field">
+      <label for="url2">Person B — LinkedIn URL</label>
+      <input type="url" id="url2" placeholder="https://www.linkedin.com/in/..." required autocomplete="off" />
+    </div>
+    <div class="field">
+      <label for="purpose">Why introduce them? <span style="text-transform:none;letter-spacing:0">(optional)</span></label>
+      <textarea id="purpose" rows="2" maxlength="500" placeholder="e.g. Alex is raising a seed round and Jordan invests in fintech"></textarea>
+    </div>
+    <button type="submit" class="primary" id="go">Write the intro</button>
+    <div class="error" id="error"></div>
+  </form>
+
+  <div class="card" id="loading">
+    <div class="step" data-step="1"><span class="dot"></span> Reading both LinkedIn profiles</div>
+    <div class="step" data-step="2"><span class="dot"></span> Finding common ground</div>
+    <div class="step" data-step="3"><span class="dot"></span> Writing three intro drafts</div>
+    <p class="loading-note">Profile lookups take 30–90 seconds.</p>
+  </div>
+
+  <div id="results">
+    <div class="card">
+      <div class="who" id="who"></div>
+      <h2>What they <em>share</em></h2>
+      <ul class="similarities" id="similarities"></ul>
+    </div>
+
+    <div class="card">
+      <h2>The <em>intro</em>, three ways</h2>
+      <div class="tabs" id="tabs"></div>
+      <div id="emails"></div>
+    </div>
+
+    <div class="again"><button id="again">Write another intro</button></div>
+  </div>
+
+  <footer>Profiles fetched via Apify · Drafts by Claude · Nothing is stored</footer>
+</main>
+
+<script>
+const form = document.getElementById('form');
+const goBtn = document.getElementById('go');
+const errBox = document.getElementById('error');
+const loading = document.getElementById('loading');
+const results = document.getElementById('results');
+
+function setStep(n) {
+  document.querySelectorAll('.step').forEach((el) => {
+    const s = Number(el.dataset.step);
+    el.classList.toggle('done', s < n);
+    el.classList.toggle('active', s === n);
+  });
+}
+
+function showError(msg) {
+  errBox.textContent = msg;
+  errBox.style.display = 'block';
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  errBox.style.display = 'none';
+  results.style.display = 'none';
+  goBtn.disabled = true;
+  loading.style.display = 'block';
+  setStep(1);
+
+  // The API does scrape -> analyze -> write in one call; advance the
+  // visual steps on a timer that roughly tracks real durations.
+  const t1 = setTimeout(() => setStep(2), 45000);
+  const t2 = setTimeout(() => setStep(3), 55000);
+
+  try {
+    const resp = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        url1: document.getElementById('url1').value,
+        url2: document.getElementById('url2').value,
+        purpose: document.getElementById('purpose').value,
+      }),
+    });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data.error || 'Request failed');
+    render(data);
+  } catch (err) {
+    showError(err.message);
+  } finally {
+    clearTimeout(t1); clearTimeout(t2);
+    loading.style.display = 'none';
+    goBtn.disabled = false;
+  }
+});
+
+function render(data) {
+  const who = document.getElementById('who');
+  who.innerHTML = '';
+  const mk = (p) => {
+    const d = document.createElement('div');
+    d.className = 'person';
+    d.textContent = p.name;
+    if (p.headline) {
+      const h = document.createElement('span');
+      h.className = 'headline';
+      h.textContent = p.headline;
+      d.appendChild(h);
+    }
+    return d;
+  };
+  const amp = document.createElement('span');
+  amp.className = 'amp';
+  amp.textContent = '&';
+  who.append(mk(data.personA), amp, mk(data.personB));
+
+  const ul = document.getElementById('similarities');
+  ul.innerHTML = '';
+  for (const s of data.similarities) {
+    const li = document.createElement('li');
+    li.textContent = s;
+    ul.appendChild(li);
+  }
+
+  const tabs = document.getElementById('tabs');
+  const emails = document.getElementById('emails');
+  tabs.innerHTML = '';
+  emails.innerHTML = '';
+
+  data.emails.forEach((em, i) => {
+    const tab = document.createElement('button');
+    tab.className = 'tab' + (i === 0 ? ' active' : '');
+    tab.textContent = em.style;
+    tab.addEventListener('click', () => {
+      tabs.querySelectorAll('.tab').forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
+      emails.querySelectorAll('.email').forEach((d) => d.classList.remove('visible'));
+      emails.children[i].classList.add('visible');
+    });
+    tabs.appendChild(tab);
+
+    const box = document.createElement('div');
+    box.className = 'email' + (i === 0 ? ' visible' : '');
+    const subj = document.createElement('div');
+    subj.className = 'subject';
+    subj.innerHTML = '<span>Subject: </span>';
+    subj.append(em.subject);
+    const body = document.createElement('div');
+    body.className = 'body';
+    body.textContent = em.body;
+    const copy = document.createElement('button');
+    copy.className = 'copy-btn';
+    copy.textContent = 'Copy email';
+    copy.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(`Subject: ${em.subject}\n\n${em.body}`);
+      copy.textContent = '✓ Copied';
+      copy.classList.add('copied');
+      setTimeout(() => { copy.textContent = 'Copy email'; copy.classList.remove('copied'); }, 2000);
+    });
+    box.append(subj, body, copy);
+    emails.appendChild(box);
+  });
+
+  results.style.display = 'block';
+  results.scrollIntoView({ behavior: 'smooth' });
+}
+
+document.getElementById('again').addEventListener('click', () => {
+  results.style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.getElementById('url1').focus();
+});
+</script>
+</body>
+</html>
