@@ -37,14 +37,6 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is an email of introduction?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "An email of introduction connects two people who don't yet know each other, because you believe they'd benefit from meeting. A good one tells each person who the other is, why you're connecting them now, and what they have in common."
-      }
-    },
-    {
-      "@type": "Question",
       "name": "How do you write a good email of introduction?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -297,9 +289,21 @@
   footer a:hover { text-decoration: underline; }
 
   .content { margin-top: 48px; }
-  .content h2 { font-size: 24px; font-weight: 500; margin: 28px 0 12px; }
-  .content h2:first-child { margin-top: 0; }
-  .content h2 em { color: var(--accent); }
+  .faq { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .faq summary {
+    list-style: none; cursor: pointer; position: relative;
+    padding: 20px 36px 20px 0; font-size: 22px; font-weight: 500;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary em { color: var(--accent); }
+  .faq summary::after {
+    content: "›"; position: absolute; right: 8px; top: 50%;
+    transform: translateY(-50%) rotate(90deg); transform-origin: center;
+    font-size: 26px; color: var(--ink-soft); transition: transform .2s;
+  }
+  .faq[open] summary::after { transform: translateY(-50%) rotate(-90deg); }
+  .faq summary:hover { color: var(--accent); }
+  .faq-body { padding-bottom: 20px; }
   .content p { font-size: 16.5px; color: var(--ink); margin-bottom: 14px; }
   .content .tips { list-style: none; margin: 4px 0 8px; }
   .content .tips li { position: relative; padding: 9px 0 9px 26px; font-size: 16.5px; border-bottom: 1px dashed var(--line); }
@@ -370,20 +374,20 @@
   </div>
 
   <section class="content">
-    <h2>What is an <em>email of introduction</em>?</h2>
-    <p>An email of introduction connects two people who don't yet know each other — usually because you believe they'd benefit from meeting. A good one gives each person a reason to reply: who the other is, why you're connecting them now, and what they already have in common.</p>
-
-    <h2>How to write a great <em>email of introduction</em></h2>
-    <ul class="tips">
-      <li><strong>Ask permission first.</strong> A "double opt-in" intro — checking with both people before you connect them — is the polite standard and gets far better responses.</li>
-      <li><strong>Address both people by name.</strong> Open with "Hi [Name] and [Name]" so it reads as a mutual introduction, not a cold email.</li>
-      <li><strong>Say why now.</strong> One sentence on the reason you're connecting them is the difference between a pleasant note and an intro that starts a real conversation.</li>
-      <li><strong>Give each person a one-line credibility intro.</strong> A quick "what they do" plus one impressive specific helps each side see the value immediately.</li>
-      <li><strong>Name the common ground.</strong> Shared employers, schools, cities, or interests make the connection feel natural rather than random.</li>
-      <li><strong>Keep it short and hand it off.</strong> Stay under 150 words, then step back: "I'll let you two take it from here."</li>
-    </ul>
-
-    <p class="content-cta">This tool does all of that for you — paste two LinkedIn profiles above and it finds the common ground, then writes three ready-to-send email of introduction drafts.</p>
+    <details class="faq">
+      <summary>How to write a great <em>email of introduction</em></summary>
+      <div class="faq-body">
+        <ul class="tips">
+          <li><strong>Ask permission first.</strong> A "double opt-in" intro — checking with both people before you connect them — is the polite standard and gets far better responses.</li>
+          <li><strong>Address both people by name.</strong> Open with "Hi [Name] and [Name]" so it reads as a mutual introduction, not a cold email.</li>
+          <li><strong>Say why now.</strong> One sentence on the reason you're connecting them is the difference between a pleasant note and an intro that starts a real conversation.</li>
+          <li><strong>Give each person a one-line credibility intro.</strong> A quick "what they do" plus one impressive specific helps each side see the value immediately.</li>
+          <li><strong>Name the common ground.</strong> Shared employers, schools, cities, or interests make the connection feel natural rather than random.</li>
+          <li><strong>Keep it short and hand it off.</strong> Stay under 150 words, then step back: "I'll let you two take it from here."</li>
+        </ul>
+        <p class="content-cta">This tool does all of that for you — paste two LinkedIn profiles above and it finds the common ground, then writes three ready-to-send email of introduction drafts.</p>
+      </div>
+    </details>
   </section>
 
   <footer>
