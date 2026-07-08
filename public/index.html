@@ -3,9 +3,57 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Email of Introduction</title>
-<meta name="description" content="Paste two LinkedIn profiles. Get their common ground and three ready-to-send intro emails." />
+<title>Email of Introduction Generator — Connect Two People Free</title>
+<meta name="description" content="Write the perfect email of introduction. Paste two LinkedIn profiles and get their shared connections plus three ready-to-send intro emails — free, no sign-up." />
+<link rel="canonical" href="https://emailofintroduction.com/" />
+<meta name="robots" content="index, follow" />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://emailofintroduction.com/" />
+<meta property="og:title" content="Email of Introduction Generator — Connect Two People" />
+<meta property="og:description" content="Paste two LinkedIn profiles and get their common ground plus three ready-to-send email of introduction drafts. Free, no sign-up." />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Email of Introduction Generator" />
+<meta name="twitter:description" content="Paste two LinkedIn profiles, get three ready-to-send intro emails. Free." />
+
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤝</text></svg>" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Email of Introduction",
+  "url": "https://emailofintroduction.com/",
+  "description": "Free tool that writes an email of introduction between two people. Paste two LinkedIn profiles to find their common ground and generate three ready-to-send intro emails.",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is an email of introduction?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An email of introduction connects two people who don't yet know each other, because you believe they'd benefit from meeting. A good one tells each person who the other is, why you're connecting them now, and what they have in common."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you write a good email of introduction?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ask both people for permission first (a double opt-in intro), address them both by name, say why you're connecting them now, give each person a one-line credibility intro, name the common ground you see between them, keep it under 150 words, and hand off with a line like 'I'll let you two take it from here.'"
+      }
+    }
+  ]
+}
+</script>
 <script>
   // Apply saved theme before first paint to avoid a flash
   (function () { try { var t = localStorage.getItem('theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {} })();
@@ -226,7 +274,7 @@
 
   .email-style-print { display: none; }
   @media print {
-    .theme-toggle, header, #form, #loading, footer, .tabs, .copy-btn, .again, .results-actions { display: none !important; }
+    .theme-toggle, header, #form, #loading, footer, .tabs, .copy-btn, .again, .results-actions, .content { display: none !important; }
     body { background: #fff; color: #000; }
     main { max-width: none; padding: 0; }
     #results { display: block !important; }
@@ -247,6 +295,18 @@
   footer .heart { color: #e0245e; }
   footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
   footer a:hover { text-decoration: underline; }
+
+  .content { margin-top: 48px; }
+  .content h2 { font-size: 24px; font-weight: 500; margin: 28px 0 12px; }
+  .content h2:first-child { margin-top: 0; }
+  .content h2 em { color: var(--accent); }
+  .content p { font-size: 16.5px; color: var(--ink); margin-bottom: 14px; }
+  .content .tips { list-style: none; margin: 4px 0 8px; }
+  .content .tips li { position: relative; padding: 9px 0 9px 26px; font-size: 16.5px; border-bottom: 1px dashed var(--line); }
+  .content .tips li:last-child { border-bottom: none; }
+  .content .tips li::before { content: "◆"; position: absolute; left: 2px; top: 13px; color: var(--accent); font-size: 11px; }
+  .content .tips strong { color: var(--ink); }
+  .content-cta { font-style: italic; color: var(--ink-soft); border-left: 3px solid var(--accent); padding-left: 14px; }
 </style>
 </head>
 <body>
@@ -308,6 +368,23 @@
 
     <div class="again"><button id="again">Write another intro</button></div>
   </div>
+
+  <section class="content">
+    <h2>What is an <em>email of introduction</em>?</h2>
+    <p>An email of introduction connects two people who don't yet know each other — usually because you believe they'd benefit from meeting. A good one gives each person a reason to reply: who the other is, why you're connecting them now, and what they already have in common.</p>
+
+    <h2>How to write a great <em>email of introduction</em></h2>
+    <ul class="tips">
+      <li><strong>Ask permission first.</strong> A "double opt-in" intro — checking with both people before you connect them — is the polite standard and gets far better responses.</li>
+      <li><strong>Address both people by name.</strong> Open with "Hi [Name] and [Name]" so it reads as a mutual introduction, not a cold email.</li>
+      <li><strong>Say why now.</strong> One sentence on the reason you're connecting them is the difference between a pleasant note and an intro that starts a real conversation.</li>
+      <li><strong>Give each person a one-line credibility intro.</strong> A quick "what they do" plus one impressive specific helps each side see the value immediately.</li>
+      <li><strong>Name the common ground.</strong> Shared employers, schools, cities, or interests make the connection feel natural rather than random.</li>
+      <li><strong>Keep it short and hand it off.</strong> Stay under 150 words, then step back: "I'll let you two take it from here."</li>
+    </ul>
+
+    <p class="content-cta">This tool does all of that for you — paste two LinkedIn profiles above and it finds the common ground, then writes three ready-to-send email of introduction drafts.</p>
+  </section>
 
   <footer>
     Profiles aren't stored — every intro is generated fresh.
