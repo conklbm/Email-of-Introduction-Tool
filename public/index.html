@@ -143,7 +143,27 @@
   .step.done .dot { border-color: var(--good); color: var(--good); }
   .step.done .dot::after { content: "✓"; animation: none; }
   @keyframes pulse { 50% { opacity: .3; } }
-  .loading-note { font-size: 13px; color: var(--ink-soft); margin-top: 10px; font-style: italic; }
+  .loading-note { font-size: 13.5px; color: var(--accent); margin-top: 14px; font-style: italic; font-weight: 600; }
+
+  /* "Making the connection" animation */
+  .connect-anim { display: flex; align-items: center; justify-content: center; margin: 6px 0 22px; height: 40px; }
+  .connect-anim .node {
+    width: 34px; height: 34px; border-radius: 50%; flex: none;
+    background: var(--accent-soft); border: 2px solid var(--accent);
+    animation: nodePulse 1.6s ease-in-out infinite;
+  }
+  .connect-anim .node-b { animation-delay: .8s; }
+  .connect-anim .wire { position: relative; width: 120px; height: 2px; background: var(--line); margin: 0 -2px; }
+  .connect-anim .spark {
+    position: absolute; top: 50%; left: 0; width: 12px; height: 12px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 10px 2px var(--accent);
+    transform: translate(-50%, -50%); animation: sparkTravel 1.6s ease-in-out infinite;
+  }
+  @keyframes nodePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+  @keyframes sparkTravel { 0% { left: 0; } 50% { left: 100%; } 100% { left: 0; } }
+  @media (prefers-reduced-motion: reduce) {
+    .connect-anim .node, .connect-anim .spark { animation: none; }
+  }
 
   /* Results */
   #results { display: none; }
@@ -236,10 +256,15 @@
   </form>
 
   <div class="card" id="loading">
+    <div class="connect-anim" aria-hidden="true">
+      <span class="node node-a"></span>
+      <span class="wire"><span class="spark"></span></span>
+      <span class="node node-b"></span>
+    </div>
     <div class="step" data-step="1"><span class="dot"></span> Reading both LinkedIn profiles</div>
     <div class="step" data-step="2"><span class="dot"></span> Finding common ground</div>
     <div class="step" data-step="3"><span class="dot"></span> Writing three intro drafts</div>
-    <p class="loading-note">Profile lookups take 30–90 seconds.</p>
+    <p class="loading-note">Profile lookups take 30–90 seconds. Don't leave this page or you'll lose the sauce!</p>
   </div>
 
   <div id="results">
@@ -291,6 +316,12 @@ const errBox = document.getElementById('error');
 const loading = document.getElementById('loading');
 const results = document.getElementById('results');
 
+// Warn before leaving while a request is in flight (results would be lost)
+let inFlight = false;
+window.addEventListener('beforeunload', (e) => {
+  if (inFlight) { e.preventDefault(); e.returnValue = ''; }
+});
+
 function setStep(n) {
   document.querySelectorAll('.step').forEach((el) => {
     const s = Number(el.dataset.step);
@@ -310,6 +341,7 @@ form.addEventListener('submit', async (e) => {
   results.style.display = 'none';
   goBtn.disabled = true;
   loading.style.display = 'block';
+  inFlight = true;
   setStep(1);
 
   // The API does scrape -> analyze -> write in one call; advance the
@@ -334,6 +366,7 @@ form.addEventListener('submit', async (e) => {
     showError(err.message);
   } finally {
     clearTimeout(t1); clearTimeout(t2);
+    inFlight = false;
     loading.style.display = 'none';
     goBtn.disabled = false;
   }
