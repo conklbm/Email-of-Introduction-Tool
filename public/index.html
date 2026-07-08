@@ -8,28 +8,29 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤝</text></svg>" />
 <style>
   :root {
-    --bg: #f6f4ef;
+    --bg: #f4f2ee;
     --card: #ffffff;
-    --ink: #1e2430;
-    --ink-soft: #5b6472;
-    --line: #e5e1d8;
-    --accent: #c25e40;
+    --ink: #1d2226;
+    --ink-soft: #56687a;
+    --line: #e0dfdc;
+    --accent: #0a66c2;
     --accent-ink: #ffffff;
-    --accent-soft: #f7e8e2;
-    --good: #2e7d55;
+    --accent-soft: #e7f0f9;
+    --good: #057642;
     --radius: 14px;
-    --shadow: 0 1px 2px rgba(30,36,48,.05), 0 8px 24px -12px rgba(30,36,48,.12);
+    --shadow: 0 1px 2px rgba(29,34,38,.05), 0 8px 24px -12px rgba(29,34,38,.12);
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #14161b;
-      --card: #1d2027;
-      --ink: #edeae3;
-      --ink-soft: #9aa1ad;
-      --line: #2c3038;
-      --accent: #d97757;
-      --accent-soft: #33261f;
-      --good: #6fc396;
+      --bg: #14171a;
+      --card: #1d2226;
+      --ink: #e9e5df;
+      --ink-soft: #9db3c8;
+      --line: #2c333d;
+      --accent: #70b5f9;
+      --accent-ink: #0e1114;
+      --accent-soft: #1e2c3c;
+      --good: #7fc98f;
       --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
     }
   }
@@ -174,6 +175,10 @@
   }
   footer { text-align: center; color: var(--ink-soft); font-size: 13px; margin-top: 40px;
     font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+  footer .credit { margin-top: 6px; }
+  footer .heart { color: #e0245e; }
+  footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  footer a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -225,7 +230,10 @@
     <div class="again"><button id="again">Write another intro</button></div>
   </div>
 
-  <footer>Profiles fetched via Apify · Drafts by Claude · Nothing is stored</footer>
+  <footer>
+    Profiles fetched via Apify · Drafts by Claude · Nothing is stored
+    <div class="credit">made with <span class="heart">❤</span> by <a href="https://www.brooksconkle.com/" target="_blank" rel="noopener">Brooks Conkle</a></div>
+  </footer>
 </main>
 
 <script>
